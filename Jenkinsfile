@@ -4,6 +4,7 @@ pipeline {
         registry = "10.73.122.51:4500/karthikeyan_c01"
         registryCredential = 'docker_dtr'
         dockerReleaseFile = 'release_dockerfile'
+        dockerSITFile = 'sit_dockerfile'
     }
     agent any
     stages {
@@ -33,6 +34,11 @@ pipeline {
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
+        stage('Run static code analyzer') {
+            steps { 
+                sh 'echo Running stating code analyser...'
+            }
+        }
         stage('Deploy Release Image') {
             steps { 
                 sh 'echo Deploy release image...'
@@ -41,17 +47,27 @@ pipeline {
                         dockerReleaseImage.push()
                     }
                 }
-            }
-        }
-        stage('Run static code analyzer') {
-            steps { 
-                sh 'echo Running stating code analyser...'
+                sh 'docker rmi $registry/cn_release:$BUILD_NUMBER'
             }
         }
         stage('Build SIT image') {
             steps { 
-                sh 'echo Deploy release image...'
+                sh 'echo Build SIT image...'
+                script {
+                    dockerSITImage = docker.build("$registry/cn_fincore_cust_ucp:$BUILD_NUMBER","-f $dockerSITFile .")
+                }
+                
             }
+        }
+        stage('Deploy Release Image') {
+            steps { 
+                sh 'echo Deploy SIT image...'
+                script {
+                    docker.withRegistry( registryURL, registryCredential ) {
+                        dockerSITImage.push()
+                    }
+                }
+                sh 'docker rmi $registry/cn_fincore_cust_ucp:$BUILD_NUMBER'
         }
     }
 }
