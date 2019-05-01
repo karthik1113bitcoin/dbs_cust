@@ -4,7 +4,7 @@ pipeline {
         stage('Example') {
             steps {
                 git url: 'https://github.com/karthik1113bitcoin/dbs_cust.git'
-                sh 'echo $USER'
+                sh 'id'
                 sh 'docker --version'
                 sh 'rm -rf cust'
                 sh 'rm -f cust.tgz'
