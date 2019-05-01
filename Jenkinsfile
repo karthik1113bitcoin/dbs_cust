@@ -10,6 +10,10 @@ pipeline {
                 git url: 'https://github.com/karthik1113bitcoin/dbs_cust.git'
             }
         }
+        stage('Preprocessing sources') {
+            steps {
+            }
+        }
         stage('Build Release Image') {
             steps { 
                 sh 'docker --version'
@@ -18,16 +22,20 @@ pipeline {
                 sh 'rm -f cust.tgz'
                 sh 'mkdir cust'
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
-                sh 'tar -cvf cust.tgz cust'
+                sh 'tar -cvf cust.tgz cust'           
+                /*script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }*/
                 sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
         stage('Deploy Release Image') {
             steps { 
-                script {
+                /*script {
                     docker.withRegistry( '', registryCredential ) {
                     dockerImage.push()
-                }
+                }*/
+                
             }
         }
     }
