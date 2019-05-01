@@ -60,7 +60,7 @@ pipeline {
                 } 
             }
         }
-        stage('Deploy Release Image') {
+        stage('Deploy SIT Image') {
             steps { 
                 sh 'echo Deploy SIT image...'
                 script {
