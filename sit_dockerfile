@@ -1,10 +1,10 @@
 
 ARG RELEASE_IMAGE='10.73.122.51:4500/karthikeyan_c01/cn_release'
-ARG RELEASE_TAG='100'
+ARG RELEASE_TAG='100.0'
 ARG BASE_IMAGE='10.73.122.51:4500/karthikeyan_c01/cn_fincore_cust_ucp'
 ARG BASE_TAG='stable'
 
-FROM $RELEASE_IMAGE:100 as cn_release
+FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
 FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
 
 ARG MODULE_NAME=LOANS
