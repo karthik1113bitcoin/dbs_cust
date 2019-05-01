@@ -6,7 +6,7 @@ pipeline {
         dockerReleaseFile = 'release_dockerfile'
         dockerSITFile = 'sit_dockerfile'
         release_image = 'cn_release'
-        SIT_BASE_IMAGE = "10.73.122.51:4500/karthikeyan_c01/cn_fincore_cust_ucp"
+        SIT_BASE_IMAGE = 'cn_fincore_cust_ucp'
         SIT_BASE_TAG = 'latest'
         
     }
@@ -59,7 +59,7 @@ pipeline {
                 sh 'echo Build SIT image...'
                 script {
                     dockerSITImage = docker.build("$registry/$SIT_BASE_IMAGE:latest",
-                                                  "-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER,BASE_IMAGE=$SIT_BASE_IMAGE,BASE_TAG=$SIT_BASE_TAG,RELEASE_IMAGE=$registry/$release_image .")
+                                                  "-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER,BASE_IMAGE=$registry/$SIT_BASE_IMAGE,BASE_TAG=$SIT_BASE_TAG,RELEASE_IMAGE=$registry/$release_image .")
                 } 
             }
         }
