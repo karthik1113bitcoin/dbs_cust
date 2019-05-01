@@ -58,7 +58,7 @@ pipeline {
             steps { 
                 sh 'echo Build SIT image...'
                 script {
-                    dockerSITImage = docker.build("$registry/$SIT_BASE_IMAGE:latest","-f ${dockerSITFile} --build-arg RELEASE_TAG='${BUILD_NUMBER}' --build-arg BASE_IMAGE=${registry}/${SIT_BASE_IMAGE} --build-arg BASE_TAG=${SIT_BASE_TAG} --build-arg RELEASE_IMAGE=${registry}/${release_image} .")
+                    dockerSITImage = docker.build("$registry/$SIT_BASE_IMAGE:latest","-t $registry/$SIT_BASE_IMAGE:$BUILD_NUMBER -f ${dockerSITFile} --build-arg RELEASE_TAG='${BUILD_NUMBER}' --build-arg BASE_IMAGE=${registry}/${SIT_BASE_IMAGE} --build-arg BASE_TAG=${SIT_BASE_TAG} --build-arg RELEASE_IMAGE=${registry}/${release_image} .")
                   //  dockerSITImage = docker.build("$registry/$SIT_BASE_IMAGE:latest","-t $registry/$SIT_BASE_IMAGE:$BUILD_NUMBER -f ${dockerSITFile} --build-arg RELEASE_TAG='${BUILD_NUMBER}' --build-arg BASE_IMAGE='${registry}/shivacore-be' --build-arg BASE_TAG=${SIT_BASE_TAG} --build-arg RELEASE_IMAGE=${registry}/${release_image} .")
                 }
                sh 'echo finished build SIT'
