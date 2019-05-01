@@ -5,7 +5,9 @@ ARG BASE_IMAGE='10.73.122.51:4500/karthikeyan_c01/cn_fincore_cust_ucp'
 ARG BASE_TAG='stable'
 
 FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
-FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
+# Defect in jenkins. Hence removing AS
+#FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
+FROM $BASE_IMAGE:$BASE_TAG
 
 ARG MODULE_NAME=LOANS
 ARG FIN_BANK_ID=DFBANK1
