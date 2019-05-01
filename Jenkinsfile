@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry = "10.73.122.51:4500/karthikeyan_c01"
-        registryCredential = ‘docker_dtr’
+        registryCredential = 'docker_dtr'
     }
     agent any
     stages {
