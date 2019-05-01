@@ -1,6 +1,9 @@
 ARG RELEASE_TAG=latest
-FROM cn_release:latest as cn_release
-FROM 10.73.122.51:4500/karthikeyan_c01/shivacore-be:latest as fincore_prod
+ARG BASE_IMAGE=10.73.122.51:4500/karthikeyan_c01/cn_fincore_cust_ucp
+ARG BASE_TAG=stable
+
+FROM cn_release:$RELEASE_TAG as cn_release
+FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
 
 ARG MODULE_NAME=LOANS
 ARG FIN_BANK_ID=DFBANK1
