@@ -5,7 +5,6 @@ pipeline {
         registryCredential = 'docker_dtr'
         dockerReleaseFile = 'release_dockerfile'
         dockerSITFile = 'sit_dockerfile'
-        
         SIT_BASE_IMAGE = registry + '/cn_fincore_cust_ucp'
         SIT_BASE_TAG = 'latest'
     }
@@ -57,10 +56,8 @@ pipeline {
             steps { 
                 sh 'echo Build SIT image...'
                 script {
-                    dockerSITImage = docker.build("$registry/cn_fincore_cust_ucp:latest",
-                                                  "-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER BASE_IMAGE=$SIT_BASE_IMAGE BASE_TAG=$SIT_BASE_TAG .")
-                }
-                
+                    dockerSITImage = docker.build("$registry/cn_fincore_cust_ucp:latest","-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER BASE_IMAGE=$SIT_BASE_IMAGE BASE_TAG=$SIT_BASE_TAG .")
+                } 
             }
         }
         stage('Deploy Release Image') {
