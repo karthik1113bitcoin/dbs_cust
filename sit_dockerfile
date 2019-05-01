@@ -40,12 +40,10 @@ COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/${MODULE_NAME}/
 #Hot fix
 COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/HOTFIX/sql/ $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
 
-
-
 RUN /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/scripts/' && \
     /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/sql/' && \
     /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/com/'
 
-COPY ./TOOLS/restart.sh $FC_INSTALL_PATH/services/
+#COPY ./TOOLS/restart.sh $FC_INSTALL_PATH/services/
 
 ### For multi entity repeat above
