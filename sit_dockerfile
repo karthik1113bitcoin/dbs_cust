@@ -6,7 +6,7 @@ ARG BASE_TAG=stable
 
 #FROM $RELEASE_IMAGE:$RELEASE_TAG as cn_release
 #FROM 10.73.122.51:4500/karthikeyan_c01/cn_release:38 as cn_release
-FROM $RELEASE_IMAGE:$RELEASE_TAG as cn_release
+FROM $RELEASE_IMAGE:44 as cn_release
 FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
 
 ARG MODULE_NAME=LOANS
