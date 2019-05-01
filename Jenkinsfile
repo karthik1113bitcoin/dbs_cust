@@ -7,14 +7,15 @@ pipeline {
     }
     agent any
     stages {
-        stage('Cloning Git') {
+        stage('Checking out Sources') {
             steps {
+                sh 'echo Checking out sources...'
                 git url: 'https://github.com/karthik1113bitcoin/dbs_cust.git'
             }
         }
         stage('Preprocessing sources') {
             steps {
-                sh 'echo preprocessing step'
+                sh 'echo preprocessing step...'
             }
         }
         stage('Build Release Image') {
@@ -34,12 +35,22 @@ pipeline {
         }
         stage('Deploy Release Image') {
             steps { 
-                sh 'echo Deploy release image'
+                sh 'echo Deploy release image...'
                 script {
                     docker.withRegistry( registryURL, registryCredential ) {
                         dockerReleaseImage.push()
                     }
                 }
+            }
+        }
+        stage('Run static code analyzer') {
+            steps { 
+                sh 'echo Running stating code analyser...'
+            }
+        }
+        stage('Build SIT image') {
+            steps { 
+                sh 'echo Deploy release image...'
             }
         }
     }
