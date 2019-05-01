@@ -10,7 +10,7 @@ pipeline {
                 sh 'mkdir cust1'
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust1/'
                 sh 'tar -cvf cust.tgz cust1'
-                sh 'docker build -f release_dockerfile -t cn_release:latest -t cn_release:5.0'
+                sh 'docker build -f release_dockerfile -t cn_release:latest -t cn_release:5.0 .'
             }
         }
     }
