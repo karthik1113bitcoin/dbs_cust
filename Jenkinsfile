@@ -5,7 +5,7 @@ pipeline {
         registryCredential = 'docker_dtr'
         dockerReleaseFile = 'release_dockerfile'
         dockerSITFile = 'sit_dockerfile'
-        SIT_BASE_IMAGE = registry + '/cn_fincore_cust_ucp'
+        SIT_BASE_IMAGE = $registry + '/cn_fincore_cust_ucp'
         SIT_BASE_TAG = 'latest'
     }
     agent any
