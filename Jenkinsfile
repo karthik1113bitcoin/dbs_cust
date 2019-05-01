@@ -7,9 +7,9 @@ pipeline {
                 echo 'Hello World'
                 echo 'hlll'
                 sh 'docker --version'
-                sh 'mkdir cust'
-                sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
-                sh 'tar -cvf cust.tgz cust'
+                sh 'mkdir cust1'
+                sh 'mv COMMON_CNTRY DFBANK1 ./cust1/'
+                sh 'tar -cvf cust.tgz cust1'
                 sh 'docker build -f release_dockerfile -t cn_release:latest -t cn_release:5.0'
             }
         }
