@@ -69,6 +69,7 @@ pipeline {
                     }
                 }
                 sh 'docker rmi $registry/cn_fincore_cust_ucp:$BUILD_NUMBER'
+            }
         }
     }
 }
