@@ -26,7 +26,7 @@ pipeline {
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
                 sh 'tar -cvf cust.tgz cust'           
                 script {
-                    dockerReleaseImage = docker.build("$registry:$BUILD_NUMBER","-f $dockerReleaseFile .")
+                    dockerReleaseImage = docker.build("$registry/cn_release:$BUILD_NUMBER","-f $dockerReleaseFile .")
                 }
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
@@ -34,11 +34,11 @@ pipeline {
         stage('Deploy Release Image') {
             steps { 
                 sh 'echo Deploy release image'
-                /*script {
-                    docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push()
-                }*/
-                
+                script {
+                    docker.withRegistry( 'https://10.73.122.51:4500', registryCredential ) {
+                        dockerReleaseImage.push()
+                    }
+                }
             }
         }
     }
