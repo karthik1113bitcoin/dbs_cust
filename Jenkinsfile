@@ -13,6 +13,7 @@ pipeline {
         }
         stage('Preprocessing sources') {
             steps {
+                sh 'echo preprocessing step'
             }
         }
         stage('Build Release Image') {
@@ -32,6 +33,7 @@ pipeline {
         }
         stage('Deploy Release Image') {
             steps { 
+                sh 'echo Deploy release image'
                 /*script {
                     docker.withRegistry( '', registryCredential ) {
                     dockerImage.push()
