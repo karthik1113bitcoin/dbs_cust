@@ -5,8 +5,10 @@ pipeline {
         registryCredential = 'docker_dtr'
         dockerReleaseFile = 'release_dockerfile'
         dockerSITFile = 'sit_dockerfile'
+        release_image = 'cn_release'
         SIT_BASE_IMAGE = "10.73.122.51:4500/karthikeyan_c01/cn_fincore_cust_ucp"
         SIT_BASE_TAG = 'latest'
+        
     }
     agent any
     stages {
@@ -31,7 +33,7 @@ pipeline {
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
                 sh 'tar -cvf cust.tgz cust'           
                 script {
-                    dockerReleaseImage = docker.build("$registry/cn_release:$BUILD_NUMBER","-f $dockerReleaseFile .")
+                    dockerReleaseImage = docker.build("$registry/$release_image:$BUILD_NUMBER","-f $dockerReleaseFile .")
                 }
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
@@ -49,15 +51,15 @@ pipeline {
                         dockerReleaseImage.push()
                     }
                 }
-                sh 'docker rmi $registry/cn_release:$BUILD_NUMBER'
+                sh 'docker rmi $registry/$release_image:$BUILD_NUMBER'
             }
         }
         stage('Build SIT image') {
             steps { 
                 sh 'echo Build SIT image...'
                 script {
-                    dockerSITImage = docker.build("$registry/cn_fincore_cust_ucp:latest",
-                                                  "-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER,BASE_IMAGE=$SIT_BASE_IMAGE,BASE_TAG=$SIT_BASE_TAG .")
+                    dockerSITImage = docker.build("$registry/$SIT_BASE_IMAGE:latest",
+                                                  "-f $dockerSITFile --build-arg RELEASE_TAG=$BUILD_NUMBER,BASE_IMAGE=$SIT_BASE_IMAGE,BASE_TAG=$SIT_BASE_TAG,RELEASE_IMAGE=$registry/$release_image .")
                 } 
             }
         }
@@ -69,7 +71,7 @@ pipeline {
                         dockerSITImage.push()
                     }
                 }
-                sh 'docker rmi $registry/cn_fincore_cust_ucp:$BUILD_NUMBER'
+                sh 'docker rmi $registry/$SIT_BASE_IMAGE:$BUILD_NUMBER'
             }
         }
     }
