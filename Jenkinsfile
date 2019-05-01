@@ -1,5 +1,6 @@
 pipeline {
     environment {
+        registryURL = 'https://10.73.122.51:4500'
         registry = "10.73.122.51:4500/karthikeyan_c01"
         registryCredential = 'docker_dtr'
         dockerReleaseFile = 'release_dockerfile'
@@ -35,7 +36,7 @@ pipeline {
             steps { 
                 sh 'echo Deploy release image'
                 script {
-                    docker.withRegistry( 'https://10.73.122.51:4500', registryCredential ) {
+                    docker.withRegistry( registryURL, registryCredential ) {
                         dockerReleaseImage.push()
                     }
                 }
