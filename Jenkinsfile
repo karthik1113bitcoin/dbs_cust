@@ -63,6 +63,11 @@ pipeline {
                sh 'echo finished build SIT'
             }
         }
+        stage('dummy stage') {
+            steps{
+                sh 'echo into dummy step'
+            }   
+        }
         stage('Deploy SIT Image') {
             steps { 
                 sh 'echo Deploy SIT image...'
