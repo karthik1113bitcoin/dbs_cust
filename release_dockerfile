@@ -1,0 +1,3 @@
+FROM scratch
+  
+ADD cust.tgz /usr/local/Finacle/BE/
