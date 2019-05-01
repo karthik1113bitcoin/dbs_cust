@@ -22,5 +22,13 @@ pipeline {
                 sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
+        stage('Deploy Release Image') {
+            steps { 
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
+            }
+        }
     }
 }
