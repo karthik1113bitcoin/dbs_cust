@@ -84,7 +84,7 @@ pipeline {
         }
         stage('Regression on SIT Image') {
             steps { 
-                sh 'echo Regression on SIT Green....'
+                sh 'echo Regression on SIT Green...'
             }
         }             
     }
