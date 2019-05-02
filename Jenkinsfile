@@ -12,18 +12,18 @@ pipeline {
     }
     agent any
     stages {
-        stage('Checking out Sources') {
+        /*stage('Checking out Sources') {
             steps {
                 sh 'echo Checking out sources...'
                 git url: 'https://github.com/karthik1113bitcoin/dbs_cust.git'
             }
-        }
-        stage('Preprocessing sources') {
+        }*/
+        stage('Preprocessing Source conversion') {
             steps {
                 sh 'echo preprocessing step...'
             }
         }
-        stage('Build Release Image') {
+        stage('Build Release Image with changes') {
             steps { 
                 sh 'docker --version'
                 sh 'echo $BUILD_NUMBER'
@@ -43,7 +43,7 @@ pipeline {
                 sh 'echo Running stating code analyser...'
             }
         }
-        stage('Deploy Release Image') {
+        stage('Deploy Release Image with changes') {
             steps { 
                 sh 'echo Deploy release image...'
                 script {
@@ -65,7 +65,7 @@ pipeline {
                sh 'echo finished build SIT'
             }
         }
-        stage('Unit testing stage') {
+        stage('Run Basic test suite') {
             steps{
                 sh 'echo Unit testing...'
             }   
