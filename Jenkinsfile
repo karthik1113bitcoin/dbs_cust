@@ -76,10 +76,16 @@ pipeline {
                 script {
                     docker.withRegistry( registryURL, registryCredential ) {
                         dockerSITImage.push()
+                        sh 'docker push $registry/$SIT_BASE_IMAGE:$BUILD_NUMBER'
                     }
                 }
                 sh 'docker rmi $registry/$SIT_BASE_IMAGE:$BUILD_NUMBER'
             }
         }
+        stage('Regression on SIT Image') {
+            steps { 
+                sh 'echo Regression on SIT Green...'
+            }
+        }             
     }
 }
