@@ -1,3 +1,5 @@
+def templatePath = 'https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
+def templateName = 'dbs-cust-template'
 pipeline {
     environment {
         registryURL = 'https://10.73.122.51:4500'
@@ -28,5 +30,33 @@ pipeline {
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
-    }
+        stage('create') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // create a new application from the templatePath
+                            openshift.newApp(templatePath)
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage
+        stage('build') {
+            steps {
+              script {
+                 openshift.withCluster() {
+                    openshift.withProject() {
+                      def builds = openshift.selector("bc", templateName).related('builds')
+                      timeout(5) { 
+                        builds.untilEach(1) {
+                          return (it.object().status.phase == "Complete")
+                        }
+                      }
+                    }
+                  }
+               }
+            }
+        }
+    } //stages
 }
