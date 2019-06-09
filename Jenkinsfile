@@ -11,10 +11,21 @@ pipeline {
     }
     agent any
     stages {
-            stage('Preprocessing Source conversion') {
+        stage('Preprocessing Source conversion') {
 
             steps {
                 sh 'echo preprocessing step...'
+            }
+        }
+        stage('Build Release Image with changes') {
+            steps {
+                sh 'rm -rf cust'
+                sh 'rm -f cust.tgz'
+                sh 'mkdir cust'
+                sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
+                sh 'tar -cvf cust.tgz cust'
+                sh 'ls -lrt cust.tgz'
+               // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
     }
