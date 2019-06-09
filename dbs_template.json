@@ -36,7 +36,7 @@
           "type": "Git",
           "git": {
             "uri": "https://github.com/karthik1113bitcoin/dbs_cust.git"
-          },
+          }
         },
         "strategy": {
           "dockerStrategy": {
