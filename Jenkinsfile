@@ -43,6 +43,7 @@ pipeline {
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
                 sh 'tar -cvf cust.tgz cust'
                 sh 'ls -lrt'
+                sh 'who am i'
                 sh 'pwd'
             }
        }
