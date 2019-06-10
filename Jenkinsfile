@@ -46,7 +46,7 @@ pipeline {
                 } // script
             } // steps
         } // stage
-       /* stage('create') {
+       stage('create') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -58,7 +58,19 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('build') {
+        stage('Build1') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // create a new application from the templatePath
+                            openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage 
+        /*stage('build') {
             steps {
               script {
                  openshift.withCluster() {
