@@ -64,7 +64,8 @@ pipeline {
                     openshift.withCluster() {
                         openshift.withProject() {
                             // create a new application from the templatePath
-                            openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
+                            //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
+                            openshift.selector("bc", "builds").startBuild("--wait=true")
                         }
                     }
                 } // script
