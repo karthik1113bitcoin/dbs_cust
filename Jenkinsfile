@@ -44,7 +44,7 @@ pipeline {
                 sh 'tar -cvf cust.tgz cust'
                 sh 'ls -lrt'
                 sh 'whoami'
-                sh 'echo JENKINS_USERNAME'
+                sh 'echo $JENKINS_USERNAME'
                 sh 'pwd'
             }
        }
