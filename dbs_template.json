@@ -42,9 +42,6 @@
             "dockerfilePath": "release_dockerfile"
           }
         },
-       /* "postCommit": {
-          "script": "docker images"
-        },*/
         "output": {
           "to": {
             "kind": "DockerImage",
