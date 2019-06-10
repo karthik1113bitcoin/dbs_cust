@@ -26,7 +26,7 @@ pipeline {
                 sh 'mkdir cust'
                 sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
                 sh 'tar -cvf cust.tgz cust'
-                sh 'ls -lrt cust.tgz'
+                sh 'ls -lrt'
                 sh 'pwd'
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
