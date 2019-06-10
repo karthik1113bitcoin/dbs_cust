@@ -30,6 +30,22 @@ pipeline {
                // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
             }
         }
+        stage('cleanup') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // delete everything with this template label
+                            openshift.selector("all", [ template : templateName ]).delete()
+                            // delete any secrets with this template label
+                            if (openshift.selector("secrets", templateName).exists()) {
+                                openshift.selector("secrets", templateName).delete()
+                            }
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage
         stage('create') {
             steps {
                 script {
