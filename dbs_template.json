@@ -42,14 +42,14 @@
             "dockerfilePath": "release_dockerfile"
           }
         },
+       /* "postCommit": {
+          "script": "docker images"
+        },*/
         "output": {
           "to": {
             "kind": "DockerImage",
             "name": "172.30.1.1:5000/dbs/jk_cn_release:latest"
           }
-        },
-        "postCommit": {
-          "script": "docker images"
         }
       }
     }
