@@ -19,18 +19,6 @@ pipeline {
                 sh 'echo preprocessing step...'
             }
         }
-        stage('Build Release Image with changes') {
-            steps {
-                sh 'rm -rf cust'
-                sh 'rm -f cust.tgz'
-                sh 'mkdir cust'
-                sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
-                sh 'tar -cvf cust.tgz cust'
-                sh 'ls -lrt'
-                sh 'pwd'
-               // sh 'docker build -f release_dockerfile -t $registry/cn_release:latest -t $registry/cn_release:5.0 .'
-            }
-        }
         stage('cleanup') {
             steps {
                 script {
@@ -47,6 +35,32 @@ pipeline {
                 } // script
             } // steps
         } // stage
+       stage('Build Source archive') {
+            steps {
+                sh 'rm -rf cust'
+                sh 'rm -f cust.tgz'
+                sh 'mkdir cust'
+                sh 'mv COMMON_CNTRY DFBANK1 ./cust/'
+                sh 'tar -cvf cust.tgz cust'
+                sh 'ls -lrt'
+                sh 'pwd'
+            }
+       }
+      /* stage('Test & Analysis') {
+        parallel(
+          Tests:{
+            echo "Running Unit Tests"
+          },
+          Analysis:{
+            echo "Running Code Analysis"
+            //sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com -Dsonar.projectName=${JOB_BASE_NAME}-${devTag}"
+          }
+        )
+       }
+       stage('Publish to Nexus') {
+        echo "Publish to Nexus"
+        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-gpte-hw-cicd.apps.na311.openshift.opentlc.com/repository/releases"
+       }*/
        stage('create') {
             steps {
                 script {
@@ -59,7 +73,7 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('Build1') {
+        stage('Build') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -72,21 +86,5 @@ pipeline {
                 } // script
             } // steps
         } // stage 
-        /*stage('build') {
-            steps {
-              script {
-                 openshift.withCluster() {
-                    openshift.withProject() {
-                      def builds = openshift.selector("bc", templateName).related('builds')
-                      timeout(1) { 
-                        builds.untilEach(1) {
-                          return (it.object().status.phase == "Complete")
-                        }
-                      }
-                    }
-                  }
-               }
-            }
-        }*/
     } //stages
 }
