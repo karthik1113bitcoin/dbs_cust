@@ -46,7 +46,7 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('create') {
+       /* stage('create') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -73,6 +73,6 @@ pipeline {
                   }
                }
             }
-        }
+        }*/
     } //stages
 }
