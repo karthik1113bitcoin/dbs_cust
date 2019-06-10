@@ -45,7 +45,7 @@
         "output": {
           "to": {
             "kind": "DockerImage",
-            "name": "172.30.1.1:5000/dbs/jk_cn_release:latest"
+            "name": "172.30.1.1:5000/p2/jk_cn_release1:latest"
           }
         }
       }
