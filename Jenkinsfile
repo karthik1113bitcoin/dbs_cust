@@ -66,7 +66,7 @@ pipeline {
                         openshift.withProject() {
                             // create a new application from the templatePath
                             //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
-                            openshift.selector("bc", "release-build").startBuild("--from-file=./cust.tgz"--wait=true","--follow")
+                            openshift.selector("bc", "release-build").startBuild("--from-file=./cust.tgz","--wait=true","--follow")
                         }
                     }
                 } // script
