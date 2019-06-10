@@ -46,6 +46,7 @@ pipeline {
                 sh 'whoami'
                 sh 'echo $JENKINS_USERNAME'
                 sh 'pwd'
+                sh 'oc new-app https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
             }
        }
       /* stage('Test & Analysis') {
