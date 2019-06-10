@@ -73,7 +73,7 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('Build') {
+        stage('Build-release') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -81,6 +81,19 @@ pipeline {
                             // create a new application from the templatePath
                             //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
                             openshift.selector("bc", "release-build").startBuild("--from-dir=/var/lib/jenkins/jobs/p2/jobs/p2-bc1-pipeline/workspace","--wait=true","--follow")
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage 
+        stage('Build-cn') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // create a new application from the templatePath
+                            //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
+                            openshift.selector("bc", "cn-build").startBuild("--wait=true","--follow")
                         }
                     }
                 } // script
