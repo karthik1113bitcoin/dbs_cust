@@ -47,7 +47,7 @@ pipeline {
                 sh 'echo $JENKINS_USERNAME'
                 sh 'pwd'
                 sh 'oc whoami'
-                sh 'oc new-app https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
+               // sh 'oc new-app https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
             }
        }
       /* stage('Test & Analysis') {
@@ -65,7 +65,7 @@ pipeline {
         echo "Publish to Nexus"
         sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-gpte-hw-cicd.apps.na311.openshift.opentlc.com/repository/releases"
        }*/
-       stage('create') {
+       /*stage('create') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -76,7 +76,7 @@ pipeline {
                     }
                 } // script
             } // steps
-        } // stage
+        } // stage*/
         stage('Build-release') {
             steps {
                 script {
