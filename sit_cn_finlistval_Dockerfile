@@ -4,7 +4,8 @@ ARG RELEASE_TAG='latest'
 ARG BASE_IMAGE='172.30.1.1:5000/p2/dbs_finlistval'
 ARG BASE_TAG='1.0'
 
-FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
+#FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
+FROM 172.30.1.1:5000/p2/jk_cn_release1:latest as cn_release
 # Defect in jenkins. Hence removing AS
 #FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
 #FROM $BASE_IMAGE:$BASE_TAG
