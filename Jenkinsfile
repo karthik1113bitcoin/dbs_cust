@@ -65,7 +65,7 @@ pipeline {
         echo "Publish to Nexus"
         sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-gpte-hw-cicd.apps.na311.openshift.opentlc.com/repository/releases"
        }*/
-       /*stage('create') {
+       stage('create') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -76,7 +76,7 @@ pipeline {
                     }
                 } // script
             } // steps
-        } // stage*/
+        } // stage
         stage('Build-release') {
             steps {
                 script {
@@ -90,7 +90,7 @@ pipeline {
                 } // script
             } // steps
         } // stage 
-        stage('Build-cn') {
+        /*stage('Build-cn') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -102,6 +102,6 @@ pipeline {
                     }
                 } // script
             } // steps
-        } // stage 
+        } // stage */
     } //stages
 }
