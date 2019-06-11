@@ -44,7 +44,7 @@
         },
         "output": {
           "to": {
-            "kind": "DockerImage",
+            "kind": "ImageStreamTag",
             "name": "172.30.1.1:5000/p2/jk_cn_release1:latest"
           }
         }
