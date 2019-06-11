@@ -49,32 +49,6 @@
           }
         }
       }
-    }/*,
-    {
-      "kind": "BuildConfig",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "cn-build",
-        "annotations": {
-          "description": "Defines how to build the application",
-          "template.alpha.openshift.io/wait-for-ready": "true"
-        }
-      },
-      "spec": {
-        "source": {
-          "git": {
-            "uri": "https://github.com/karthik1113bitcoin/dbs_cust.git"
-          }
-        },
-        "strategy": {
-          "customStrategy": {
-            "from": {
-              "kind": "DockerImage",
-              "name": "172.30.1.1:5000/p2/custom-builder-image:latest"
-            }
-          }
-        }
-      }
-    }*/
+    }
   ]
 }
