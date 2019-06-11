@@ -68,7 +68,7 @@
         },
         "strategy": {
           "dockerStrategy": {
-            "dockerfilePath": "sit_cn_finlistval_Dockerfile"
+            "dockerfilePath": "docker_dummy"
           }
         },
         "output": {
