@@ -90,7 +90,7 @@ pipeline {
                 } // script
             } // steps
         } // stage 
-        /*stage('Build-cn') {
+        stage('Build-cn') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -102,6 +102,6 @@ pipeline {
                     }
                 } // script
             } // steps
-        } // stage */
+        } // stage 
     } //stages
 }
