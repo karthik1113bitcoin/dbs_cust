@@ -1,0 +1,51 @@
+
+ARG RELEASE_IMAGE='172.30.1.1:5000/p2/jk_cn_release1'
+ARG RELEASE_TAG='latest'
+ARG BASE_IMAGE='172.30.1.1:5000/p2/dbs_finlistval'
+ARG BASE_TAG='1.0'
+
+FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
+# Defect in jenkins. Hence removing AS
+#FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
+FROM $BASE_IMAGE:$BASE_TAG
+
+ARG MODULE_NAME=LOANS
+ARG FIN_BANK_ID=DFBANK1
+ENV CUST_PATH ./
+ARG FC_INSTALL_PATH=/usr/local/Finacle/BE/
+# Copying following sources.
+#  1. common to all countries and all modules.
+#  2. common to all countries but specific module.
+#  3. specific country but all modules.
+#  4. specific country and specific module.
+# Same script for 2 modules can be softlinked at code maintainance level.
+
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/COMMON_MODULE/scripts/*.scr $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/scripts/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/${MODULE_NAME}/scripts/*.scr $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/scripts/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/COMMON_MODULE/scripts/*.scr $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/scripts/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/${MODULE_NAME}/scripts/*.scr $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/scripts/
+#Hot fix
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/HOTFIX/scripts/*.scr $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/scripts/
+
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/COMMON_MODULE/com/* $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/com/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/${MODULE_NAME}/com/* $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/com/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/COMMON_MODULE/com/* $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/com/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/${MODULE_NAME}/com/* $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/com/
+#Hot fix
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/HOTFIX/com/* $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/com/
+
+# bauu9151 based SQL only. PL/SQL will not be included.
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/COMMON_MODULE/sql/*.sql $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/COMMON_CNTRY/${MODULE_NAME}/sql/*.sql $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/COMMON_MODULE/sql/*.sql $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/${MODULE_NAME}/sql/*.sql $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
+#Hot fix
+COPY --from=cn_release /usr/local/Finacle/BE/cust/${FIN_BANK_ID}/HOTFIX/sql/ $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/sql/
+
+RUN /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/scripts/' && \
+    /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/sql/' && \
+    /bin/bash -c 'mkdir -p $FC_INSTALL_PATH/cust/${FIN_BANK_ID}/INFENG/HOTFIX/com/'
+
+#COPY ./TOOLS/restart.sh $FC_INSTALL_PATH/services/
+
+### For multi entity repeat above
