@@ -7,7 +7,8 @@ ARG BASE_TAG='1.0'
 FROM ${RELEASE_IMAGE}:${RELEASE_TAG} as cn_release
 # Defect in jenkins. Hence removing AS
 #FROM $BASE_IMAGE:$BASE_TAG as fincore_prod
-FROM $BASE_IMAGE:$BASE_TAG
+#FROM $BASE_IMAGE:$BASE_TAG
+FROM 172.30.1.1:5000/p2/dbs_finlistval:1.0
 
 ARG MODULE_NAME=LOANS
 ARG FIN_BANK_ID=DFBANK1
