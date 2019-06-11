@@ -1,0 +1,1 @@
+FROM 172.30.1.1:5000/p2/jk_cn_release1:latest as cn_release
