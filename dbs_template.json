@@ -63,7 +63,7 @@
       "spec": {
         "source": {
           "git": {
-            "uri": "https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/sit_cn_finlistval_Dockerfile"
+            "uri": "https://github.com/karthik1113bitcoin/dbs_cust.git"
           }
         },
         "strategy": {
