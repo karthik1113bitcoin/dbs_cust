@@ -69,8 +69,10 @@
         "strategy": {
           "dockerStrategy": {
             "dockerfilePath": "docker_dummy",
-            "from": "DockerImage",
-            "name": "172.30.1.1:5000/p2/jk_cn_release1:latest"
+            "from": {
+              "kind": "DockerImage",
+              "name": "172.30.1.1:5000/p2/jk_cn_release1:latest"
+            }
           }
         },
         "output": {
