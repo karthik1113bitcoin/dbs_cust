@@ -25,7 +25,7 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "release-build1",
+        "name": "release-build",
         "annotations": {
           "description": "Defines how to build the application",
           "template.alpha.openshift.io/wait-for-ready": "true"
@@ -44,8 +44,8 @@
         },
         "output": {
           "to": {
-            "kind": "ImageStreamTag",
-            "name": "172.30.1.1:5000/p2/jk_cn_release2:latest"
+            "kind": "DockerImage",
+            "name": "172.30.1.1:5000/p2/jk_cn_release:latest"
           }
         }
       }
