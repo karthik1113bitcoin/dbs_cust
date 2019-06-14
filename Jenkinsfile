@@ -84,7 +84,7 @@ pipeline {
                         openshift.withProject() {
                             // create a new application from the templatePath
                             //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
-                            openshift.selector("bc", "release-build1").startBuild("--from-dir=/var/lib/jenkins/jobs/p2/jobs/p2-bc1-pipeline/workspace","--wait=true","--follow")
+                            openshift.selector("bc", "release-build").startBuild("--from-dir=/var/lib/jenkins/jobs/p2/jobs/p2-bc1-pipeline/workspace","--wait=true","--follow")
                         }
                     }
                 } // script
