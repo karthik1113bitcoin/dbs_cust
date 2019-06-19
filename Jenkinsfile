@@ -1,4 +1,5 @@
-def templatePath = 'https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
+//def templatePath = 'https://raw.githubusercontent.com/karthik1113bitcoin/dbs_cust/master/dbs_template.json'
+def templatePath = 'https://raw.githubusercontent.com/karthik1113bitcoin/p3/master/template.yaml'
 def templateName = 'dbs-cust-template'
 pipeline {
     environment {
@@ -77,7 +78,7 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('Build-release') {
+       /* stage('Build-release') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -98,6 +99,20 @@ pipeline {
                             // create a new application from the templatePath
                             //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
                             openshift.selector("bc", "cn-build").startBuild("--wait=true","--follow")
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage */
+        
+        stage('Build-release') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // create a new application from the templatePath
+                            //openshiftBuild(buildConfig: 'release-build', showBuildLogs: 'true')
+                            openshift.selector("bc", "1bc").startBuild("--wait=true","--follow")
                         }
                     }
                 } // script
